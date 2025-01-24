@@ -6,16 +6,17 @@ import threading
 import serial
 
 # Configura el puerto serial para Arduino
-arduino = serial.Serial('COM3', 9600)
+arduino = serial.Serial('COM4', 9600)
 
 root = tk.Tk()
 root.title("Control de Brazo Robótico")
 root.geometry("1000x900")
-root.configure(bg="#34495e")
+root.configure(bg="#641e16")
 
-button_color = "#2980b9"
-button_hover = "#1abc9c"
-label_color = "#2ecc71"
+button_color = "#922b21"
+button_hover = "#c0392b"
+label_color = "#fdedec"
+botonverde = "#27ae60"
 button_font = ("Arial", 12, 'bold')
 label_font = ("Arial", 14, 'bold')
 
@@ -215,37 +216,37 @@ def hover_effect(button, color_on_hover, color_on_leave):
 
 def crear_interfaz():
     # Selección de Joint
-    joint_frame = tk.Frame(root, bg="#34495e")
+    joint_frame = tk.Frame(root, bg="#641e16")
     joint_frame.pack(pady=10)
-    tk.Label(joint_frame, text="Seleccionar Joint:", bg="#34495e", fg=label_color, font=label_font).grid(row=0, column=0, padx=10, pady=5)
+    tk.Label(joint_frame, text="Seleccionar Joint:", bg="#641e16", fg=label_color, font=label_font).grid(row=0, column=0, padx=10, pady=5)
     joints_menu = ttk.Combobox(joint_frame, textvariable=current_joint, values=[f"Joint {i}" for i in range(1, 7)], state="readonly")
     joints_menu.grid(row=0, column=1, padx=10, pady=5)
 
     # Control de grados
-    degrees_frame = tk.Frame(root, bg="#34495e")
+    degrees_frame = tk.Frame(root, bg="#641e16")
     degrees_frame.pack(pady=10)
-    tk.Label(degrees_frame, text="Grados a mover:", bg="#34495e", fg=label_color, font=label_font).grid(row=0, column=0, padx=10, pady=5)
+    tk.Label(degrees_frame, text="Grados a mover:", bg="#641e16", fg=label_color, font=label_font).grid(row=0, column=0, padx=10, pady=5)
     tk.Entry(degrees_frame, textvariable=degree_value, font=button_font).grid(row=0, column=1, padx=10, pady=5)
 
     # Botones de movimiento
-    movement_frame = tk.Frame(root, bg="#34495e")
+    movement_frame = tk.Frame(root, bg="#641e16")
     movement_frame.pack(pady=20)
-    positive_button = tk.Button(movement_frame, text="Positivo", bg=button_color, fg="white", font=button_font, width=10, height=2, command=lambda: mover_joint("+"))
+    positive_button = tk.Button(movement_frame, text="Positivo",  activebackground="#f1948a", bg=button_color, fg="white", font=button_font, width=10, height=2, command=lambda: mover_joint("+"))
     positive_button.grid(row=0, column=0, padx=10, pady=10)
     hover_effect(positive_button, button_hover, button_color)
 
-    negative_button = tk.Button(movement_frame, text="Negativo", bg=button_color, fg="white", font=button_font, width=10, height=2, command=lambda: mover_joint("-"))
+    negative_button = tk.Button(movement_frame, text="Negativo",  activebackground="#f1948a", bg=button_color, fg="white", font=button_font, width=10, height=2, command=lambda: mover_joint("-"))
     negative_button.grid(row=0, column=1, padx=10, pady=10)
     hover_effect(negative_button, button_hover, button_color)
 
-    imprimir_button = tk.Button(movement_frame, text="Imprimir Temporales", bg=button_color, fg="white", font=button_font, width=20, height=2, command=imprimir_temporales)
+    imprimir_button = tk.Button(movement_frame, text="Imprimir Temporales", bg=button_color,  activebackground="#f1948a", fg="white", font=button_font, width=20, height=2, command=imprimir_temporales)
     imprimir_button.grid(row=0, column=2, padx=10, pady=10)
     hover_effect(imprimir_button, button_hover, button_color)
 
     # Guardar y seleccionar posiciones
-    position_frame = tk.Frame(root, bg="#34495e")
+    position_frame = tk.Frame(root, bg="#641e16")
     position_frame.pack(pady=20)
-    guardar_button = tk.Button(position_frame, text="Guardar Posición", bg=button_color, fg="white", font=button_font, width=15, height=2, command=guardar_posicion)
+    guardar_button = tk.Button(position_frame, text="Guardar Posición", bg=button_color,  activebackground="#f1948a", fg="white", font=button_font, width=15, height=2, command=guardar_posicion)
     guardar_button.grid(row=0, column=0, padx=10, pady=10)
     hover_effect(guardar_button, button_hover, button_color)
 
@@ -253,44 +254,44 @@ def crear_interfaz():
     posiciones_menu = ttk.Combobox(position_frame, state="readonly", width=20)
     posiciones_menu.grid(row=0, column=1, padx=10, pady=10)
 
-    ejecutar_button = tk.Button(position_frame, text="Ejecutar Posición", bg=button_color, fg="white", font=button_font, width=15, height=2, command=ejecutar_posicion)
-    ejecutar_button.grid(row=0, column=2, padx=10, pady=10)
-    hover_effect(ejecutar_button, button_hover, button_color)
+    ejecutar_button = tk.Button(position_frame, text="Ejecutar Posición", bg="green", activebackground="#57dd90", fg="white", font=button_font, width=15, height=2, command=ejecutar_posicion)
+    ejecutar_button.grid(row=1, column=0, padx=10, pady=10)
+    hover_effect(ejecutar_button, botonverde, "green")
 
-    borrar_button = tk.Button(position_frame, text="Borrar Posición", bg="red", fg="white", font=button_font, width=15, height=2, command=borrar_posicion_guardada)
-    borrar_button.grid(row=0, column=3, padx=10, pady=10)
-    hover_effect(borrar_button, "#e74c3c", "red")
+    borrar_button = tk.Button(position_frame, text="Borrar Posición", activebackground="#fd7676", bg="red", fg="white", font=button_font, width=15, height=2, command=borrar_posicion_guardada)
+    borrar_button.grid(row=1, column=1, padx=10, pady=10)
+    hover_effect(borrar_button, "#fd7676", "red")
 
-    limpiar_button = tk.Button(position_frame, text="Limpiar Movimientos", bg="orange", fg="white", font=button_font, width=20, height=2, command=limpiar_movimientos_temporales)
-    limpiar_button.grid(row=1, column=1, padx=10, pady=10)
-    hover_effect(limpiar_button, "#f39c12", "orange")
+    limpiar_button = tk.Button(position_frame, text="Limpiar Movimientos", activebackground="#ffd05f", bg="orange", fg="white", font=button_font, width=20, height=2, command=limpiar_movimientos_temporales)
+    limpiar_button.grid(row=1, column=2, padx=10, pady=10)
+    hover_effect(limpiar_button, "#ffd05f", "orange")
 
     # Configuración de detección de color
-    color_frame = tk.Frame(root, bg="#34495e")
+    color_frame = tk.Frame(root, bg="#641e16")
     color_frame.pack(pady=20)
-    tk.Label(color_frame, text="Ejecutar por detección de color:", bg="#34495e", fg=label_color, font=label_font).grid(row=0, column=0, padx=10, pady=5)
+    tk.Label(color_frame, text="Ejecutar por detección de color:", bg="#641e16", fg=label_color, font=label_font).grid(row=0, column=0, padx=10, pady=5)
 
     global color_menu
     color_menu = ttk.Combobox(color_frame, textvariable=position_for_color, state="readonly", width=20)
     color_menu.grid(row=0, column=1, padx=10, pady=5)
 
-    ajustar_color_button = tk.Button(color_frame, text="Ajustar Color", bg=button_color, fg="white", font=button_font, width=15, height=2, command=ajustar_color)
+    ajustar_color_button = tk.Button(color_frame, text="Ajustar Color", bg=button_color,  activebackground="#f1948a", fg="white", font=button_font, width=15, height=2, command=ajustar_color)
     ajustar_color_button.grid(row=0, column=2, padx=10, pady=10)
     hover_effect(ajustar_color_button, button_hover, button_color)
 
     # Controles de cámara
-    camera_frame = tk.Frame(root, bg="#34495e")
+    camera_frame = tk.Frame(root, bg="#641e16")
     camera_frame.pack(pady=20)
-    ver_camara_button = tk.Button(camera_frame, text="Ver Cámara", bg=button_color, fg="white", font=button_font, width=15, height=2, command=iniciar_camara)
+    ver_camara_button = tk.Button(camera_frame, text="Ver Cámara", bg=button_color,  activebackground="#f1948a", fg="white", font=button_font, width=15, height=2, command=iniciar_camara)
     ver_camara_button.grid(row=0, column=0, padx=10, pady=10)
     hover_effect(ver_camara_button, button_hover, button_color)
 
-    apagar_camara_button = tk.Button(camera_frame, text="Apagar Cámara", bg=button_color, fg="white", font=button_font, width=15, height=2, command=apagar_camara)
+    apagar_camara_button = tk.Button(camera_frame, text="Apagar Cámara",  activebackground="#f1948a", bg=button_color, fg="white", font=button_font, width=15, height=2, command=apagar_camara)
     apagar_camara_button.grid(row=0, column=1, padx=10, pady=10)
     hover_effect(apagar_camara_button, button_hover, button_color)
 
     # Botón de cierre
-    cerrar_button = tk.Button(root, text="Cerrar App", bg=button_color, fg="white", font=button_font, width=15, height=2, command=cerrar_app)
+    cerrar_button = tk.Button(root, text="Cerrar App",  activebackground="#f1948a", bg=button_color, fg="white", font=button_font, width=15, height=2, command=cerrar_app)
     cerrar_button.pack(side="bottom", pady=30)
     hover_effect(cerrar_button, button_hover, button_color)
 
