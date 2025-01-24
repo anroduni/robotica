@@ -239,32 +239,35 @@ def crear_interfaz():
     negative_button.grid(row=0, column=1, padx=10, pady=10)
     hover_effect(negative_button, button_hover, button_color)
 
-    imprimir_button = tk.Button(movement_frame, text="Imprimir Temporales", bg=button_color,  activebackground="#f1948a", fg="white", font=button_font, width=20, height=2, command=imprimir_temporales)
-    imprimir_button.grid(row=0, column=2, padx=10, pady=10)
-    hover_effect(imprimir_button, button_hover, button_color)
-
     # Guardar y seleccionar posiciones
     position_frame = tk.Frame(root, bg="#641e16")
     position_frame.pack(pady=20)
+
+    imprimir_button = tk.Button(position_frame, text="Imprimir Temporales", bg=button_color,  activebackground="#f1948a", fg="white", font=button_font, width=20, height=2, command=imprimir_temporales)
+    imprimir_button.grid(row=0, column=0, padx=10, pady=10, )
+    hover_effect(imprimir_button, button_hover, button_color)
+
+    limpiar_button = tk.Button(position_frame, text="Limpiar Movimientos", activebackground="#ffd05f", bg="orange", fg="white", font=button_font, width=20, height=2, command=limpiar_movimientos_temporales)
+    limpiar_button.grid(row=0, column=1, padx=10, pady=10)
+    hover_effect(limpiar_button, "#ffd05f", "orange")
+
     guardar_button = tk.Button(position_frame, text="Guardar Posición", bg=button_color,  activebackground="#f1948a", fg="white", font=button_font, width=15, height=2, command=guardar_posicion)
-    guardar_button.grid(row=0, column=0, padx=10, pady=10)
+    guardar_button.grid(row=0, column=2, padx=10, pady=10)
     hover_effect(guardar_button, button_hover, button_color)
+
+    ejecutar_button = tk.Button(position_frame, text="Ejecutar Posición", bg="green", activebackground="#57dd90", fg="white", font=button_font, width=15, height=2, command=ejecutar_posicion)
+    ejecutar_button.grid(row=1, column=0, padx=10, pady=30)
+    hover_effect(ejecutar_button, botonverde, "green")
 
     global posiciones_menu
     posiciones_menu = ttk.Combobox(position_frame, state="readonly", width=20)
-    posiciones_menu.grid(row=0, column=1, padx=10, pady=10)
-
-    ejecutar_button = tk.Button(position_frame, text="Ejecutar Posición", bg="green", activebackground="#57dd90", fg="white", font=button_font, width=15, height=2, command=ejecutar_posicion)
-    ejecutar_button.grid(row=1, column=0, padx=10, pady=10)
-    hover_effect(ejecutar_button, botonverde, "green")
+    posiciones_menu.grid(row=1, column=1, padx=10, pady=30)
 
     borrar_button = tk.Button(position_frame, text="Borrar Posición", activebackground="#fd7676", bg="red", fg="white", font=button_font, width=15, height=2, command=borrar_posicion_guardada)
-    borrar_button.grid(row=1, column=1, padx=10, pady=10)
+    borrar_button.grid(row=1, column=2, padx=10, pady=30)
     hover_effect(borrar_button, "#fd7676", "red")
 
-    limpiar_button = tk.Button(position_frame, text="Limpiar Movimientos", activebackground="#ffd05f", bg="orange", fg="white", font=button_font, width=20, height=2, command=limpiar_movimientos_temporales)
-    limpiar_button.grid(row=1, column=2, padx=10, pady=10)
-    hover_effect(limpiar_button, "#ffd05f", "orange")
+    
 
     # Configuración de detección de color
     color_frame = tk.Frame(root, bg="#641e16")
